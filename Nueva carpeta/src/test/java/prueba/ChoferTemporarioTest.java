@@ -11,29 +11,29 @@ import modeloDatos.ChoferTemporario;
 
 class ChoferTemporarioTest {
 
+	ChoferTemporario chofer;
+	
 	@Before
 	public void setUp() {
+		this.chofer = new ChoferTemporario("24532189", "Pedro");
 		Chofer.setSueldoBasico(2000.0);
 	}
 	
 	@Test
 	public void testConstructorChofer() {
-		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
-		assertNotNull(chofer, "El chofer debe ser distinto de null");
+		assertNotNull(this.chofer, "El chofer debe ser distinto de null");
 	}
 	
 	@Test
 	public void testGetDni() {
-		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
 		String dniEsperado = "24532189";
-		assertEquals(dniEsperado,chofer.getDni(),"El DNI debe ser " + dniEsperado);
+		assertEquals(dniEsperado,this.chofer.getDni(),"El DNI debe ser " + dniEsperado);
 	}
 	
 	@Test
 	public void testGetNombre(){
-		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
 		String nombreEsperado = "Pedro";
-		assertEquals(nombreEsperado,chofer.getNombre(),"El nombre debe ser " + nombreEsperado);
+		assertEquals(nombreEsperado,this.chofer.getNombre(),"El nombre debe ser " + nombreEsperado);
 	}
 	
 	@Test
@@ -45,13 +45,7 @@ class ChoferTemporarioTest {
 	
 	@Test
 	public void testGetSueldoNetoyBruto() {
-		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
-		assertEquals(chofer.getSueldoNeto(),chofer.getSueldoBruto(),"El sueldo bruto debe ser igual al neto para temporarios");
+		assertEquals(this.chofer.getSueldoNeto(),this.chofer.getSueldoBruto(),"El sueldo bruto debe ser igual al neto para temporarios");
 	}
-	
-	
-	
-	
-	
 
 }
