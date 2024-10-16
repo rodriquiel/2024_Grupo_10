@@ -33,7 +33,7 @@ class ChoferPermanenteTest {
 	public void testGetCantidadHijos() {
 		ChoferPermanente chofer = new ChoferPermanente("24532189", "Pedro", 2020, 6);
 		int cantidadEsperada = 6;
-		assertEquals(chofer.getAntiguedad(),cantidadEsperada,"La cantidad de hijos debe ser " + cantidadEsperada);
+		assertEquals(chofer.getCantidadHijos(),cantidadEsperada,"La cantidad de hijos debe ser " + cantidadEsperada);
 	}
 	
 	@Test
