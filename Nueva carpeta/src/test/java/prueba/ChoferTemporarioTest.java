@@ -26,14 +26,14 @@ class ChoferTemporarioTest {
 	public void testGetDni() {
 		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
 		String dniEsperado = "24532189";
-		assertEquals(chofer.getDni(),dniEsperado,"El DNI debe ser " + dniEsperado);
+		assertEquals(dniEsperado,chofer.getDni(),"El DNI debe ser " + dniEsperado);
 	}
 	
 	@Test
 	public void testGetNombre(){
 		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
 		String nombreEsperado = "Pedro";
-		assertEquals(chofer.getNombre(),nombreEsperado,"El nombre debe ser " + nombreEsperado);
+		assertEquals(nombreEsperado,chofer.getNombre(),"El nombre debe ser " + nombreEsperado);
 	}
 	
 	@Test

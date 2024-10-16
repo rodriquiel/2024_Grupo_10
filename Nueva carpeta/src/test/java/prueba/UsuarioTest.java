@@ -20,20 +20,20 @@ class UsuarioTest {
 	public void testGetNombreRealCliente() {
 		Cliente usuarioPrueba = new Cliente("Juan95","12345","juan");
 		String nombreEsperado = "juan";
-		assertEquals(usuarioPrueba.getNombreReal(),nombreEsperado,"El nombre real debe ser " + nombreEsperado);
+		assertEquals(nombreEsperado,usuarioPrueba.getNombreReal(),"El nombre real debe ser " + nombreEsperado);
 	}
 	
 	@Test
 	public void testGetNombreUsuario() {
 		Cliente usuarioPrueba = new Cliente("Juan95","12345","juan");
 		String nombreEsperado = "Juan95";
-		assertEquals(usuarioPrueba.getNombreUsuario(),nombreEsperado,"El nombre de usuario debe ser " + nombreEsperado);
+		assertEquals(nombreEsperado,usuarioPrueba.getNombreUsuario(),"El nombre de usuario debe ser " + nombreEsperado);
 	}
 	
 	@Test
 	public void testGetPass() {
 		Cliente usuarioPrueba = new Cliente("Juan95","12345","juan");
 		String passEsperada = "12345";
-		assertEquals(usuarioPrueba.getPass(),passEsperada,"La contraseña debe ser " + passEsperada);
+		assertEquals(passEsperada,usuarioPrueba.getPass(),"La contraseña debe ser " + passEsperada);
 	}
 }

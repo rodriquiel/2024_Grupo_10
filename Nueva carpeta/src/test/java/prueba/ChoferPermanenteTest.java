@@ -19,21 +19,21 @@ class ChoferPermanenteTest {
 	public void testGetAnioIngreso() {
 		ChoferPermanente chofer = new ChoferPermanente("24532189", "Pedro", 2020, 6);
 		int anioEsperado = 2020;
-		assertEquals(chofer.getAnioIngreso(),anioEsperado,"El año de ingreso debe ser " + anioEsperado);
+		assertEquals(anioEsperado,chofer.getAnioIngreso(),"El año de ingreso debe ser " + anioEsperado);
 	}
 	
 	@Test
 	public void testGetAntiguedad() {
 		ChoferPermanente chofer = new ChoferPermanente("24532189", "Pedro", 2020, 6);
 		int antiguedadEsperada = 2024 - chofer.getAnioIngreso(); //Se toma 2024 ya que es el año en el cual se entrega el TP
-		assertEquals(chofer.getAntiguedad(),antiguedadEsperada,"La Antiguedad debe ser " + antiguedadEsperada);
+		assertEquals(antiguedadEsperada,chofer.getAntiguedad(),"La Antiguedad debe ser " + antiguedadEsperada);
 	}
 	
 	@Test
 	public void testGetCantidadHijos() {
 		ChoferPermanente chofer = new ChoferPermanente("24532189", "Pedro", 2020, 6);
 		int cantidadEsperada = 6;
-		assertEquals(chofer.getCantidadHijos(),cantidadEsperada,"La cantidad de hijos debe ser " + cantidadEsperada);
+		assertEquals(cantidadEsperada,chofer.getCantidadHijos(),"La cantidad de hijos debe ser " + cantidadEsperada);
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ class ChoferPermanenteTest {
 		ChoferPermanente chofer = new ChoferPermanente("24532189", "Pedro", 2020, 6);
 		int cantidadEsperada = 4;
 		chofer.setCantidadHijos(4);
-		assertEquals(chofer.getCantidadHijos(),cantidadEsperada,"La cantidad de hijos debe ser " + cantidadEsperada);
+		assertEquals(cantidadEsperada,chofer.getCantidadHijos(),"La cantidad de hijos debe ser " + cantidadEsperada);
 	}
 	
 	@Test
@@ -56,14 +56,14 @@ class ChoferPermanenteTest {
 		else
 			plusAntiguedad = 0.05*chofer.getAntiguedad();
 		resultadoEsperado = sueldoBasico * (1 + plusAntiguedad + plusHijos);
-		assertEquals(chofer.getSueldoBruto(),resultadoEsperado,0.01);
+		assertEquals(resultadoEsperado,chofer.getSueldoBruto(),0.01);
 	}
 	
 	@Test
 	public void testGetSueldoNeto() {
 		ChoferPermanente chofer = new ChoferPermanente("24532189", "Pedro", 2020, 6);
 		double resultadoEsperado = chofer.getSueldoBruto()*0.86;
-		assertEquals(chofer.getSueldoNeto(),resultadoEsperado,0.01);	
+		assertEquals(resultadoEsperado,chofer.getSueldoNeto(),0.01);	
 	}
 	
 }
