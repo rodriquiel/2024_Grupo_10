@@ -2,11 +2,11 @@ package prueba;
 
 import static org.junit.Assert.assertSame;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import modeloDatos.Administrador;
 
-class AdministradorTest {
+public class AdministradorTest {
 
 	@Test
 	public void testGeiInstance() {

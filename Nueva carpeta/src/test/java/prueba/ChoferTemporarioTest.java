@@ -1,10 +1,12 @@
 package prueba;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import modeloDatos.Chofer;
 import modeloDatos.ChoferTemporario;
@@ -21,7 +23,12 @@ class ChoferTemporarioTest {
 	
 	@Test
 	public void testConstructorChofer() {
+<<<<<<< Updated upstream
 		assertNotNull(this.chofer, "El chofer debe ser distinto de null");
+=======
+		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
+		assertNotNull("El chofer debe ser distinto de null",chofer);
+>>>>>>> Stashed changes
 	}
 	
 	@Test
@@ -40,12 +47,17 @@ class ChoferTemporarioTest {
 	public void testGetSueldoBasico() {
 		double resultadoEsperado = 2000.0;
 		double resultadoReal = Chofer.getSueldoBasico();
-		assertEquals(resultadoReal,resultadoEsperado,"El sueldo basico debe ser " + resultadoEsperado);
+		assertEquals("El sueldo basico debe ser " + resultadoEsperado,resultadoReal,resultadoEsperado);
 	}
 	
 	@Test
 	public void testGetSueldoNetoyBruto() {
+<<<<<<< Updated upstream
 		assertEquals(this.chofer.getSueldoNeto(),this.chofer.getSueldoBruto(),"El sueldo bruto debe ser igual al neto para temporarios");
+=======
+		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
+		assertEquals("El sueldo bruto debe ser igual al neto para temporarios",chofer.getSueldoNeto(),chofer.getSueldoBruto());
+>>>>>>> Stashed changes
 	}
 
 }
