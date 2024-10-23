@@ -1,24 +1,15 @@
 package prueba;
 
-<<<<<<< Updated upstream
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
-=======
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
->>>>>>> Stashed changes
 
 import modeloDatos.Cliente;
 
-class UsuarioTest {
+public class UsuarioTest {
 	
 	Cliente usuarioPrueba;
 	
@@ -29,12 +20,8 @@ class UsuarioTest {
 	
 	@Test
 	public void testConstructorUsuario(){
-<<<<<<< Updated upstream
-		assertNotNull(this.usuarioPrueba, "El cliente debe ser distinto de null");
-=======
 		Cliente usuarioPrueba = new Cliente("Juan95","12345","juan");
 		assertNotNull("El cliente debe ser distinto de null",usuarioPrueba);
->>>>>>> Stashed changes
 	}
 	
 	@Test

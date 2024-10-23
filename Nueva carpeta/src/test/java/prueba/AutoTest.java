@@ -1,19 +1,19 @@
 package prueba;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import modeloDatos.Auto;
 import modeloDatos.Cliente;
 import modeloDatos.Pedido;
 import util.Constantes;
 
-class AutoTest {
+public class AutoTest {
 
 	Auto auto;
 	
@@ -24,7 +24,7 @@ class AutoTest {
 	
 	@Test
 	public void testConstructorAuto() {
-		assertNotNull(this.auto,"El auto debe ser distinto de null");
+		assertNotNull("El auto debe ser distinto de null",this.auto);
 	}
 	
 	@Test
@@ -36,7 +36,7 @@ class AutoTest {
 	@Test
 	public void testGetCantidadPlazas() {
 		int cantEsperada = 2;
-		assertEquals(cantEsperada,this.auto.getCantidadPlazas(),"La cantidad de plazas debe ser " + cantEsperada);
+		assertEquals("La cantidad de plazas debe ser " + cantEsperada,cantEsperada,this.auto.getCantidadPlazas());
 	}
 
 	@Test
@@ -50,7 +50,7 @@ class AutoTest {
 		Pedido pedido = new Pedido(cliente, 3, true, true, 8, Constantes.ZONA_STANDARD);
 		
 		int puntajeEsperado = 40*pedido.getCantidadPasajeros();
-		assertEquals(puntajeEsperado,this.auto.getPuntajePedido(pedido),"El puntaje debe ser " + puntajeEsperado);
+		assertEquals(puntajeEsperado,this.auto.getPuntajePedido(pedido),0.001);
 		
 	}
 	
@@ -68,7 +68,7 @@ class AutoTest {
 		Pedido pedido = new Pedido(cliente, 3, false, false, 8, Constantes.ZONA_STANDARD);
 		
 		int puntajeEsperado = 30*pedido.getCantidadPasajeros();
-		assertEquals(puntajeEsperado,this.auto.getPuntajePedido(pedido),"El puntaje debe ser " + puntajeEsperado);	
+		assertEquals(puntajeEsperado,this.auto.getPuntajePedido(pedido),0.001);	
 	}	
 	
 }

@@ -11,7 +11,7 @@ import org.junit.Test;
 import modeloDatos.Chofer;
 import modeloDatos.ChoferTemporario;
 
-class ChoferTemporarioTest {
+public class ChoferTemporarioTest {
 
 	ChoferTemporario chofer;
 	
@@ -23,12 +23,8 @@ class ChoferTemporarioTest {
 	
 	@Test
 	public void testConstructorChofer() {
-<<<<<<< Updated upstream
-		assertNotNull(this.chofer, "El chofer debe ser distinto de null");
-=======
 		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
 		assertNotNull("El chofer debe ser distinto de null",chofer);
->>>>>>> Stashed changes
 	}
 	
 	@Test
@@ -52,12 +48,8 @@ class ChoferTemporarioTest {
 	
 	@Test
 	public void testGetSueldoNetoyBruto() {
-<<<<<<< Updated upstream
-		assertEquals(this.chofer.getSueldoNeto(),this.chofer.getSueldoBruto(),"El sueldo bruto debe ser igual al neto para temporarios");
-=======
 		ChoferTemporario chofer = new ChoferTemporario("24532189", "Pedro");
 		assertEquals("El sueldo bruto debe ser igual al neto para temporarios",chofer.getSueldoNeto(),chofer.getSueldoBruto());
->>>>>>> Stashed changes
 	}
 
 }

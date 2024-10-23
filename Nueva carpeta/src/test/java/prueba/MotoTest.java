@@ -1,17 +1,17 @@
 package prueba;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import modeloDatos.Cliente;
 import modeloDatos.Moto;
 import modeloDatos.Pedido;
 import util.Constantes;
 
-class MotoTest {
+public class MotoTest {
 
 	Moto moto;
 	Cliente cliente;	
@@ -28,7 +28,7 @@ class MotoTest {
 		Pedido pedido = new Pedido(this.cliente, 1, false, false, 8, Constantes.ZONA_STANDARD);
 		
 		int puntajeEsperado = 1000;
-		assertEquals(puntajeEsperado,this.moto.getPuntajePedido(pedido),"El puntaje debe ser " + puntajeEsperado);		
+		assertEquals(puntajeEsperado,this.moto.getPuntajePedido(pedido),0.001);		
 	}
 
 	@Test
