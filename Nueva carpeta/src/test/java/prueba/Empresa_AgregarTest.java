@@ -34,7 +34,7 @@ public class Empresa_AgregarTest {
 	Chofer chofer1,chofer2;
 	Cliente cliente1,cliente2;
 	Pedido pedido1, pedido2;
-	Vehiculo auto,moto,combi;
+	Vehiculo auto1,auto2,moto,combi;
 	
 	@Before
 	public void setUp() {
@@ -107,10 +107,10 @@ public class Empresa_AgregarTest {
 	@Test
 	public void TestAgregarPedidoE1() {
 		cliente1=new Cliente("Juan123","ABC123","Juan");
-		auto=new Auto("ABC456",3,true);
+		auto1=new Auto("ABC456",3,true);
 		pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
 		try {
-			empresa.agregarVehiculo(auto);
+			empresa.agregarVehiculo(auto1);
 			empresa.agregarPedido(pedido1);
 			pedido2=empresa.getPedidoDeCliente(cliente1);
 			if(pedido2==null) {
@@ -123,9 +123,10 @@ public class Empresa_AgregarTest {
 	
 	@Test
 	public void TestAgregarPedidoE2() {
-		cliente1=new Cliente("Juan123","ABC123","Juan");
-		pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
 		try {
+			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente1=empresa.getClientes().get("Juan123");
+			pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
 			empresa.agregarPedido(pedido1);
 			fail("Deberia lanzar la excepcion - SinVehiculoParaPedidoException -");
 		}catch(SinVehiculoParaPedidoException excep) {
@@ -138,11 +139,13 @@ public class Empresa_AgregarTest {
 	
 	@Test
 	public void TestAgregarPedidoE3() {
-		//cliente1=new Cliente("Juan123","ABC123","Juan");
-		auto=new Auto("ABC456",3,true);
-		pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
+		auto1=new Auto("ABC456",3,true);
+		chofer1=new ChoferPermanente("40767176","Juan",1999,3);
+		cliente1= new Cliente("Carlos257","CAR57","Carlos");//creo al cliente pero NO lo agrego a la empresa
 		try {
-			empresa.agregarVehiculo(auto);
+			empresa.agregarVehiculo(auto1);
+			empresa.agregarChofer(chofer1);
+			pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
 			empresa.agregarPedido(pedido1);
 			fail("Deberia lanzar la excepcion - ClienteNoExisteException -");
 		}catch(ClienteNoExisteException excep) {
@@ -156,11 +159,18 @@ public class Empresa_AgregarTest {
 	@Test
 	public void TestAgregarPedidoE4() {
 		cliente1=new Cliente("Juan123","ABC123","Juan");
-		auto=new Auto("ABC456",3,true);
-		pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
-		pedido2=new Pedido(cliente1,1,false,false,10,Constantes.ZONA_SIN_ASFALTAR);
+		auto1=new Auto("ABC456",3,true);
+		auto2=new Auto("DEF456",3,true);
+		chofer1=new ChoferPermanente("40767176","Juan",1999,3);
+		chofer2=new ChoferPermanente("38557987","Pedro",1995,1);
 		try {
-			empresa.agregarVehiculo(auto);
+			empresa.agregarCliente("Juan123","ABC123","Juan");
+			empresa.agregarVehiculo(auto1);
+			empresa.agregarVehiculo(auto2);
+			empresa.agregarChofer(chofer1);
+			empresa.agregarChofer(chofer2);
+			pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
+			pedido2=new Pedido(cliente1,1,false,false,10,Constantes.ZONA_SIN_ASFALTAR);
 			empresa.agregarPedido(pedido1);
 			empresa.agregarPedido(pedido2);
 			fail("Deberia lanzar la excepcion - ClienteConPedidoPendienteException -");
@@ -174,14 +184,21 @@ public class Empresa_AgregarTest {
 	
 	@Test
 	public void TestAgregarPedidoE5() {
-		cliente1=new Cliente("Juan123","ABC123","Juan");
-		auto=new Auto("ABC456",3,true);
-		pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
-		pedido2=new Pedido(cliente1,1,false,false,10,Constantes.ZONA_SIN_ASFALTAR);
+		auto1=new Auto("ABC456",3,true);
+		auto2=new Auto("DEF456",3,true);
+		chofer1=new ChoferPermanente("40767176","Juan",1999,3);
+		chofer2=new ChoferPermanente("38557987","Pedro",1995,1);
 		try {
-			empresa.agregarVehiculo(auto);
+			empresa.agregarVehiculo(auto1);
+			empresa.agregarVehiculo(auto2);
+			empresa.agregarChofer(chofer1);
+			empresa.agregarChofer(chofer2);
+			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente1=empresa.getClientes().get("Juan123");
+			pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
+			pedido2=new Pedido(cliente1,1,false,false,10,Constantes.ZONA_SIN_ASFALTAR);
 			empresa.agregarPedido(pedido1);
-			empresa.crearViaje(pedido1, chofer1, auto);
+			empresa.crearViaje(pedido1, chofer1, auto1);
 			empresa.agregarPedido(pedido2);
 			fail("Deberia lanzar la excepcion - ClienteConViajePendienteException -");
 		}catch(ClienteConViajePendienteException excep) {
@@ -194,9 +211,9 @@ public class Empresa_AgregarTest {
 	
 	@Test
 	public void TestAgregarVehiculoE1() {
-		auto=new Auto("ABC456",3,true);
+		auto1=new Auto("ABC456",3,true);
 		try {
-			empresa.agregarVehiculo(auto);
+			empresa.agregarVehiculo(auto1);
 			HashMap<String,Vehiculo> hash=empresa.getVehiculos();
 			if(hash.size()!=1) {
 				fail("Solo deberia haber un vehiculo en la empresa");
@@ -208,10 +225,10 @@ public class Empresa_AgregarTest {
 	
 	@Test
 	public void TestAgregarVehiculoE2() {
-		auto=new Auto("ABC456",3,true);
-		Vehiculo auto2=new Auto("ABC456",3,true);
+		auto1=new Auto("ABC456",3,true);
+		auto2=new Auto("ABC456",3,true);
 		try {
-			empresa.agregarVehiculo(auto);
+			empresa.agregarVehiculo(auto1);
 			empresa.agregarVehiculo(auto2);
 			fail("Deberia haber lanzado la excepcion - VehiculoRepetidoException -");
 			
