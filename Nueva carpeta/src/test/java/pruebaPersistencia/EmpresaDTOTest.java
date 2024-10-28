@@ -2,6 +2,7 @@ package pruebaPersistencia;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ import excepciones.VehiculoRepetidoException;
 import modeloDatos.Auto;
 import modeloDatos.Chofer;
 import modeloDatos.ChoferTemporario;
+import modeloDatos.Cliente;
 import modeloDatos.Pedido;
 import modeloNegocio.Empresa;
 import persistencia.EmpresaDTO;
@@ -46,8 +48,49 @@ public class EmpresaDTOTest {
 	@Test
 	public void testGetSetCliente() {
 		String userEsperado = Empresa.getInstance().getClientes().get("Juan").getNombreUsuario();
-		
+		String nombreEsperado = Empresa.getInstance().getClientes().get("Juan").getNombreReal();
+		String passEsperada = Empresa.getInstance().getClientes().get("Juan").getPass();
+		EmpresaDTO empresaDTO = UtilPersistencia.EmpresaDtoFromEmpresa();
+		assertEquals(empresaDTO.getClientes().size(),Empresa.getInstance().getClientes().size());
+		assertEquals("El user del cliente deberia ser " + userEsperado,empresaDTO.getClientes().get(userEsperado).getNombreUsuario(),userEsperado);
+		assertEquals("El nombre del cliente deberia ser " + nombreEsperado,empresaDTO.getClientes().get(userEsperado).getNombreReal(),nombreEsperado);
+		assertEquals("El pass del cliente deberia ser " + passEsperada,empresaDTO.getClientes().get(userEsperado).getPass(),passEsperada);
 	}
 
+	@Test
+	public void testGetSetVehiculo() {
+		String patenteEsperada = Empresa.getInstance().getVehiculos().get("ABC123").getPatente();
+		int asientosEsperado = Empresa.getInstance().getVehiculos().get("ABC123").getCantidadPlazas();
+		boolean mascotaEsperado = Empresa.getInstance().getVehiculos().get("ABC123").isMascota();
+		EmpresaDTO empresaDTO = UtilPersistencia.EmpresaDtoFromEmpresa();
+		assertEquals(empresaDTO.getVehiculos().size(),Empresa.getInstance().getVehiculos().size());
+		assertEquals("El user del cliente deberia ser " + patenteEsperada,empresaDTO.getVehiculos().get(patenteEsperada).getPatente(),patenteEsperada);
+		assertEquals(empresaDTO.getVehiculos().get(patenteEsperada).getCantidadPlazas(),asientosEsperado);
+		assertEquals(empresaDTO.getVehiculos().get(patenteEsperada).isMascota(),mascotaEsperado);
+	}
+	
+	@Test
+	public void testGetSetPedido() {
+		Cliente cliente = Empresa.getInstance().getClientes().get("Juan");
+		int kmEsperado = Empresa.getInstance().getPedidos().get(cliente).getKm();
+		int cantPasajerosEsperado = Empresa.getInstance().getPedidos().get(cliente).getCantidadPasajeros();
+		String zonaEsperada = Empresa.getInstance().getPedidos().get(cliente).getZona();
+		boolean baulEsperado = Empresa.getInstance().getPedidos().get(cliente).isBaul();
+		boolean mascotaEsperado = Empresa.getInstance().getPedidos().get(cliente).isMascota();
+		EmpresaDTO empresaDTO = UtilPersistencia.EmpresaDtoFromEmpresa();
+		assertEquals(empresaDTO.getPedidos().size(),Empresa.getInstance().getPedidos().size());
+		assertEquals(empresaDTO.getPedidos().get(cliente).getCantidadPasajeros(),cantPasajerosEsperado);
+		assertEquals(empresaDTO.getPedidos().get(cliente).getKm(),kmEsperado);
+		assertEquals(empresaDTO.getPedidos().get(cliente).getZona(),zonaEsperada);
+		assertEquals(empresaDTO.getPedidos().get(cliente).isBaul(),baulEsperado);
+		assertEquals(empresaDTO.getPedidos().get(cliente).isMascota(),mascotaEsperado);
+	}
+	
 	@After
+	public void tearDown() {
+		Empresa.getInstance().getClientes().clear();
+		Empresa.getInstance().getChoferes().clear();
+		Empresa.getInstance().getVehiculos().clear();
+		Empresa.getInstance().getPedidos().clear();
+	}
 }
