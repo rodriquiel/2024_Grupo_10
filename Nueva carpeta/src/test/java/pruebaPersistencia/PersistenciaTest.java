@@ -63,7 +63,7 @@ public class PersistenciaTest {
 		} catch (FileNotFoundException e1) {
 			fail("No deberia lanzar excepcion: "+ e1.getMessage());
 		} catch (IOException e2) {
-			
+			fail("No deberia lanzar excepcion: "+ e2.getMessage());
 		} catch (ClassNotFoundException e3) {
 			fail("No deberia lanzar excepcion: "+ e3.getMessage());
 		}
