@@ -1,6 +1,8 @@
 package prueba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,19 +11,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import modeloDatos.Chofer;
+import modeloDatos.ChoferTemporario;
 import modeloDatos.Cliente;
+import modeloDatos.Moto;
 import modeloDatos.Pedido;
 import modeloDatos.Vehiculo;
 import modeloDatos.Viaje;
 import modeloNegocio.Empresa;
+import util.Constantes;
 
 public class EmpresaTest {
 	Empresa empresa1;
+	Cliente cliente1;
 	
 	@Before
 	public void setUp()
 	{
 		empresa1=Empresa.getInstance();
+		cliente1=new Cliente("juan95","1234","juan");
 	}
 	
 	@Test
@@ -98,10 +105,59 @@ public class EmpresaTest {
 	}
 	
 	@Test
-	public void VehiculosOrdenadosPorPedidos(Pedido pedido)
+	public void VehiculosOrdenadosPorPedidosTest()
 	{
+		Moto moto1=new Moto("jdk");
+		Moto moto2=new Moto("123");
+		
+		Pedido pedido1=new Pedido(null, 0, false, false, 0, null);
+	try {	
+		empresa1.agregarVehiculo(moto1);
+		empresa1.agregarVehiculo(moto2);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		ArrayList<Vehiculo>vehiculosOrdenados=empresa1.vehiculosOrdenadosPorPedido(pedido1);
+		assertTrue("los vehiculos no estan ordenados",vehiculosOrdenados.get(0).getPuntajePedido(pedido1)>=vehiculosOrdenados.get(1).getPuntajePedido(pedido1));
+	}
+	
+	@Test
+	public void validarPedidoTest() {
+		Pedido pedido1=new Pedido(cliente1, 0, false, false, 0, null);
+		
+		assertFalse("el pedido no deberia ser valido",empresa1.validarPedido(pedido1));
 		
 	}
 	
-
+	@Test
+	public void ValidarPedidoTest2()
+	{
+		Moto moto1=new Moto("123");
+		try {
+			empresa1.agregarVehiculo(moto1);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		Pedido pedido1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
+		
+		assertTrue("el pedido deberia ser valido",empresa1.validarPedido(pedido1));
+		
+	}
+	
+	@Test
+	public void GetTotalSalariosTest() {
+		Chofer ch1=new ChoferTemporario("456","tomi");
+		
+		ch1.setSueldoBasico(450.0);
+		try {
+			empresa1.agregarChofer(ch1);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		assertEquals("no devuelve los salarios correctamente",empresa1.getTotalSalarios(),450.0);
+	}
 }
