@@ -26,16 +26,18 @@ public class LoginTest {
 	public void setUp() {
 		empresa=Empresa.getInstance();
 		admin=Administrador.getInstance();
-		cliente=new Cliente("Juan123","ABC123","Juan");
 	}
 	
 	@Test
 	public void TestLoginE1() {
 		
 		try {
+			empresa.login("admin", "admin");//entro como admin para gestion
 			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente=empresa.getClientes().get("Juan123");
+			empresa.logout();//salgo
 			usuario=empresa.login("Juan123","ABC123");
-			assertSame("Las instancias de usuario y cliente deberian ser iguales",usuario,cliente);
+			assertSame("Las instancias de usuario y cliente deberian ser iguales",usuario,empresa.getUsuarioLogeado());
 		}catch(Exception e) {
 			fail("No deberia lanzar excepciones");
 		}
@@ -49,6 +51,7 @@ public class LoginTest {
 			usuario=empresa.login("Juan123","ABC123");
 			fail("Deberia lanzar la excepcion - UsuarioNoExisteException  -");
 		}catch(UsuarioNoExisteException excep) {
+			//assertEquals("Los usuarios deberian ser iguales",usuario.getNombreUsuario(),excep.getUsuarioPretendido());
 			assertEquals("El mensaje de la excepcion esta mal",excep.getMessage(),util.Mensajes.USUARIO_DESCONOCIDO);
 		}catch(Exception e) {
 			fail("No deberia lanzar una excepcion diferente de - UsuarioNoExisteException  -");
@@ -59,7 +62,10 @@ public class LoginTest {
 	public void TestLoginE3() {
 		
 		try {
+			empresa.login("admin", "admin");//entro como admin para gestion
 			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente=empresa.getClientes().get("Juan123");
+			empresa.logout();//salgo
 			usuario=empresa.login("Juan123","ABC456");//contrasenia incorrecta
 			fail("Deberia lanzar la excepcion - PasswordErroneaException  -");
 		}catch(PasswordErroneaException excep) {

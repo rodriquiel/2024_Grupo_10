@@ -3,6 +3,8 @@ package prueba;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +33,8 @@ public class CalificacionDeChoferTest {
 	public void setUp() {
 		empresa=Empresa.getInstance();
 		admin=Administrador.getInstance();
-		empresa.setUsuarioLogeado(admin);
 		chofer=new ChoferPermanente("42949155","Pedro",1999,3);
-		cliente=new Cliente("Juan123","ABC123","Juan");
 		auto=new Auto("ABC456",3,true);
-		pedido=new Pedido(cliente,3,false,false,30,Constantes.ZONA_PELIGROSA);
 	}
 	
 	@Test
@@ -44,33 +43,43 @@ public class CalificacionDeChoferTest {
 		double calificacion=0;
 		
 		try {
-			empresa.agregarChofer(chofer);
+			empresa.login("admin", "admin");//entro como admin para gestionar todo
 			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente=empresa.getClientes().get("Juan123");
+			pedido=new Pedido(cliente,3,false,false,30,Constantes.ZONA_PELIGROSA);
+			empresa.agregarChofer(chofer);
 			empresa.agregarVehiculo(auto);
 			empresa.agregarPedido(pedido);
 			empresa.crearViaje(pedido, chofer, auto);
+			empresa.logout();//salgo como admin
+			empresa.login("Juan123", "ABC123");//entro como cliente para calificar
 			empresa.pagarYFinalizarViaje(3);
 			calificacion=empresa.calificacionDeChofer(chofer);
 			if(calificacion!=3) {
 				fail("La calificacion debería ser 3");
 			}
-		}catch(SinViajesException excep) {
-			fail("No deberia lanzar la escepcion - SinViajesException - porque el chofer ya hizo un viaje");
 		}
 		catch(Exception e) {
-			fail("No deberia lanzar excepciones");
+			fail(e.getMessage());
 		}
 	}
 	
+	@Test
 	public void TestCalificacionDeChoferE2() {
 		
 		double calificacion=0;
 		
 		try {
+			empresa.login("admin", "admin");//entro como admin para gestionar todo
 			empresa.agregarChofer(chofer);
 			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente=empresa.getClientes().get("Juan123");
+			pedido=new Pedido(cliente,3,false,false,30,Constantes.ZONA_PELIGROSA);
 			empresa.agregarVehiculo(auto);
 			empresa.agregarPedido(pedido);
+			//empresa.crearViaje(pedido, chofer, auto); NO CREO EL VIAJE
+			empresa.logout();//salgo como admin
+			empresa.login("Juan123", "ABC123");//entro como cliente para calificar
 			calificacion=empresa.calificacionDeChofer(chofer);
 			fail("Debería haber lanzado la excepcion - SinViajesException - ya que el chofer no tiene viajes");
 		}catch(SinViajesException excep) {

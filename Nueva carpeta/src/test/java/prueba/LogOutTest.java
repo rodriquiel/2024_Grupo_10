@@ -23,15 +23,13 @@ public class LogOutTest {
 	public void setUp() {
 		empresa=Empresa.getInstance();
 		admin=Administrador.getInstance();
-		cliente=new Cliente("Juan123","ABC123","Juan");
 	}
 	
 	@Test
 	public void TestLogOut() {
 		
 		try {
-		empresa.agregarCliente("Juan123","ABC123","Juan");
-		empresa.login("Juan123","ABC123");
+		empresa.login("admin", "admin");//entro como admin para gestion
 		empresa.logout();
 		assertNull("El usuario logueado deberia ser null",empresa.getUsuarioLogeado());
 		}catch(Exception e) {
@@ -41,13 +39,6 @@ public class LogOutTest {
 	
 	@After
 	public void tearDown() {
-		empresa.getChoferes().clear();
-		empresa.getChoferesDesocupados().clear();
 		empresa.getClientes().clear();
-		empresa.getPedidos().clear();
-		empresa.getVehiculos().clear();
-		empresa.getVehiculosDesocupados().clear();
-		empresa.getViajesIniciados().clear();
-		empresa.getViajesTerminados().clear();
 	}
 }

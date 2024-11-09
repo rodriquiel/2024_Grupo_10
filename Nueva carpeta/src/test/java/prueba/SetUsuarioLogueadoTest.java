@@ -3,6 +3,7 @@ package prueba;
 import static org.junit.Assert.assertSame;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import modeloDatos.Administrador;
 import modeloDatos.Cliente;
@@ -22,6 +23,7 @@ public class SetUsuarioLogueadoTest {
 		admin=Administrador.getInstance();
 	}
 	
+	@Test
 	public void setUsuarioLogueadoTest() {
 		empresa.setUsuarioLogeado(admin);
 		usuario=empresa.getUsuarioLogeado();

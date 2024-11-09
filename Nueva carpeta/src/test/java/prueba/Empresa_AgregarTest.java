@@ -92,12 +92,12 @@ public class Empresa_AgregarTest {
 	public void TestAgregarClienteE2() {
 		try {
 			empresa.agregarCliente("Juan123","ABC123","Juan");
-			cliente2= new Cliente("Juan123","ABC123","Juan");
+			cliente1= empresa.getClientes().get("Juan123");
 			empresa.agregarCliente("Juan123","ABC123","Juan");
 			fail("Deberia haber lanzado la excepcion - UsuarioYaExisteException -");
 			
 		}catch(UsuarioYaExisteException excep) {
-			assertEquals("El usuario repetido deberia ser "+cliente2.getNombreUsuario(),cliente2.getNombreUsuario(),excep.getUsuarioPretendido());
+			assertEquals("El usuario pretendido deberia ser "+cliente1.getNombreUsuario(),cliente1.getNombreUsuario(),excep.getUsuarioPretendido());
 			assertEquals("El mensaje de la excepcion esta mal",excep.getMessage(),util.Mensajes.USUARIO_REPETIDO);
 		}catch(Exception e) {
 			fail("No deberia lanzar otro tipo de excepcion que no sea - UsuarioYaExisteException -");
@@ -106,10 +106,11 @@ public class Empresa_AgregarTest {
 	
 	@Test
 	public void TestAgregarPedidoE1() {
-		cliente1=new Cliente("Juan123","ABC123","Juan");
 		auto1=new Auto("ABC456",3,true);
-		pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
 		try {
+			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente1=empresa.getClientes().get("Juan123");
+			pedido1=new Pedido(cliente1,3,false,false,30,Constantes.ZONA_PELIGROSA);
 			empresa.agregarVehiculo(auto1);
 			empresa.agregarPedido(pedido1);
 			pedido2=empresa.getPedidoDeCliente(cliente1);
@@ -158,13 +159,13 @@ public class Empresa_AgregarTest {
 	
 	@Test
 	public void TestAgregarPedidoE4() {
-		cliente1=new Cliente("Juan123","ABC123","Juan");
 		auto1=new Auto("ABC456",3,true);
 		auto2=new Auto("DEF456",3,true);
 		chofer1=new ChoferPermanente("40767176","Juan",1999,3);
 		chofer2=new ChoferPermanente("38557987","Pedro",1995,1);
 		try {
 			empresa.agregarCliente("Juan123","ABC123","Juan");
+			cliente1=empresa.getClientes().get("Juan123");
 			empresa.agregarVehiculo(auto1);
 			empresa.agregarVehiculo(auto2);
 			empresa.agregarChofer(chofer1);
@@ -233,8 +234,8 @@ public class Empresa_AgregarTest {
 			fail("Deberia haber lanzado la excepcion - VehiculoRepetidoException -");
 			
 		}catch(VehiculoRepetidoException excep) {
-			assertEquals("La patente deberia ser "+auto2.getPatente(),auto2.getPatente(),excep.getPatentePrentendida());
-			assertSame("Las instancias de los vehiculos deberian ser iguales en la excepcion - VehiculoRepetidoException -",auto2,excep.getVehiculoExistente());
+			assertEquals("La patente deberia ser "+auto1.getPatente(),auto1.getPatente(),excep.getPatentePrentendida());
+			assertSame("Las instancias de los vehiculos deberian ser iguales en la excepcion - VehiculoRepetidoException -",empresa.getVehiculos().get(auto1),excep.getVehiculoExistente());
 			assertEquals("El mensaje de la excepcion esta mal",excep.getMessage(),util.Mensajes.VEHICULO_YA_REGISTRADO);
 		}catch(Exception e) {
 			fail("No deberia lanzar otro tipo de excepcion que no sea - VehiculoRepetidoException -");
