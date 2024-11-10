@@ -8,28 +8,28 @@ import vista.IOptionPane;
 import vista.Ventana;
 
 public class VentanaFalsa extends Ventana {
-	FalsoOptionPane optionPaneFalso;
-	Pedido pedido;
-	Chofer choferDisponible;
-	Vehiculo vehiculoDisponible;
-	String tipoVehiculo;
-	String patente;
-	int plazas;
-	boolean mascota;
-	String tipoChofer;
-	String nombreChofer;
-	String DNIChofer;
-	int anioChofer;
-	int hijosChofer;
-	int calificacion;
-	int cantidadPax;
-	boolean baul;
-	int cantKm;
-	String tipoZona;
-	String nombreReal;
-	String usserName;
-	String password;
-	String confirmPassword;
+	private FalsoOptionPane optionPaneFalso;
+	private Pedido pedido;
+	private Chofer choferDisponible;
+	private Vehiculo vehiculoDisponible;
+	private String tipoVehiculo;
+	private String patente;
+	private int plazas;
+	private boolean mascota;
+	private String tipoChofer;
+	private String nombreChofer;
+	private String DNIChofer;
+	private int anioChofer;
+	private int hijosChofer;
+	private int calificacion;
+	private int cantidadPax;
+	private boolean baul;
+	private int cantKm;
+	private String tipoZona;
+	private String nombreReal;
+	private String usserName;
+	private String password;
+	private String confirmPassword;
 	
 	public VentanaFalsa() {
 	}

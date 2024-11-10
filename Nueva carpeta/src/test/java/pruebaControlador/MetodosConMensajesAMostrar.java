@@ -31,7 +31,7 @@ public class MetodosConMensajesAMostrar {
 		opFalso = new FalsoOptionPane();
 		ventana = new VentanaFalsa();
 		this.controlador = new Controlador();
-		this.ventana.setOptionPaneFalso(opFalso);;
+		this.ventana.setOptionPaneFalso(opFalso);
 		this.controlador.setVista(ventana);
 	}
 
