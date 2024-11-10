@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +31,20 @@ public class EmpresaTest {
 		empresa1=Empresa.getInstance();
 		cliente1=new Cliente("juan95","1234","juan");
 	}
+	
+	@After
+	public void tearDown(){
+		Empresa.getInstance().getClientes().clear();
+		Empresa.getInstance().getChoferes().clear();
+		Empresa.getInstance().getVehiculos().clear();
+		Empresa.getInstance().getVehiculosDesocupados().clear();
+		Empresa.getInstance().getChoferesDesocupados().clear();
+		Empresa.getInstance().getPedidos().clear();
+		Empresa.getInstance().getViajesIniciados().clear();
+		Empresa.getInstance().getViajesTerminados().clear();
+		Empresa.getInstance().logout();
+	}
+	
 	
 	@Test
 	public void getYsetclientesTest() 
