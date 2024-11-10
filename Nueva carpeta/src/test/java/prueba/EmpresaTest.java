@@ -2,7 +2,10 @@ package prueba;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import excepciones.ClienteSinViajePendienteException;
+import excepciones.SinViajesException;
+import excepciones.UsuarioYaExisteException;
 import modeloDatos.Chofer;
 import modeloDatos.ChoferTemporario;
 import modeloDatos.Cliente;
@@ -30,10 +36,15 @@ public class EmpresaTest {
 	{
 		empresa1=Empresa.getInstance();
 		cliente1=new Cliente("juan95","1234","juan");
+		try {
+			empresa1.agregarCliente("juan95","1234","juan");
+		} catch (UsuarioYaExisteException e) {
+		}
 	}
 	
 	@After
 	public void tearDown(){
+		empresa1=null;
 		Empresa.getInstance().getClientes().clear();
 		Empresa.getInstance().getChoferes().clear();
 		Empresa.getInstance().getVehiculos().clear();
@@ -43,7 +54,9 @@ public class EmpresaTest {
 		Empresa.getInstance().getViajesIniciados().clear();
 		Empresa.getInstance().getViajesTerminados().clear();
 		Empresa.getInstance().logout();
+		cliente1=null;
 	}
+	
 	
 	
 	@Test
@@ -175,4 +188,115 @@ public class EmpresaTest {
 		}
 		assertEquals("no devuelve los salarios correctamente",empresa1.getTotalSalarios(),450.0);
 	}
+	
+	@Test
+	public void GetHistorialDeViajeporClienteTest()
+	{
+		assertEquals("deberia ser igual a cero",empresa1.getHistorialViajeCliente(cliente1).size(),0);
+		
+		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
+		Chofer ch1=new ChoferTemporario("45131031", "raul");
+		Vehiculo m1= new Moto("123");
+	
+		
+		try {
+			empresa1.agregarChofer(ch1);
+			empresa1.agregarVehiculo(m1);
+			empresa1.agregarPedido(p1);
+			empresa1.crearViaje(p1, ch1, m1);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		assertEquals("deberia ser igual a 1",empresa1.getHistorialViajeCliente(cliente1).size(), 1);
+	}
+	
+	@Test
+	public void GetHistorialDeViajesChoferTest()
+	{
+		Chofer ch1=new ChoferTemporario("43131031","juan");
+		try {
+			empresa1.agregarChofer(ch1);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		assertEquals("deberia ser 0",empresa1.getHistorialViajeChofer(ch1).size(), 0);
+		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
+		Vehiculo m1= new Moto("123");
+		
+		try {
+			empresa1.agregarChofer(ch1);
+			empresa1.agregarVehiculo(m1);
+			empresa1.agregarPedido(p1);
+			empresa1.crearViaje(p1, ch1, m1);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		assertEquals("deberia ser igual a 1",empresa1.getHistorialViajeChofer(ch1).size(),1);
+		
+	}
+	
+	@Test
+	public void GetPedidoClienteTest()
+	{
+		assertNull("deberia se null",empresa1.getPedidoDeCliente(cliente1));
+		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
+		try {
+			empresa1.agregarPedido(p1);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		assertEquals("deberia ser igual p1",empresa1.getPedidoDeCliente(cliente1),p1);
+	}
+	@Test
+	public void GetviajeDelClienteTest()
+	{
+		assertNull("deberia ser null",empresa1.getViajeDeCliente(cliente1));
+		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
+		Chofer ch1=new ChoferTemporario("43212555","raul");
+		Vehiculo m1= new Moto("123");
+		
+		try {
+			empresa1.agregarChofer(ch1);
+			empresa1.agregarVehiculo(m1);
+			empresa1.agregarPedido(p1);
+			empresa1.crearViaje(p1, ch1, m1);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		assertNotNull("deberia no sere null",empresa1.getViajeDeCliente(cliente1));
+	}
+	@Test
+	public void CalificacionDelChoferTest()
+	{
+		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
+		Chofer ch1=new ChoferTemporario("43212555","raul");
+		Vehiculo m1= new Moto("123");
+		
+		try {
+			empresa1.calificacionDeChofer(ch1);
+			fail();
+		} catch (SinViajesException e) {
+		}
+		
+		try {
+			empresa1.agregarChofer(ch1);
+			empresa1.agregarVehiculo(m1);
+			empresa1.agregarPedido(p1);
+			empresa1.crearViaje(p1, ch1, m1);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		try {
+			empresa1.pagarYFinalizarViaje(3);
+		} catch (ClienteSinViajePendienteException e) {
+			// TODO Bloque catch generado automáticamente
+		}
+		try {
+			assertTrue(empresa1.calificacionDeChofer(ch1)<=5.0 && empresa1.calificacionDeChofer(ch1)>0.0);
+		} catch (SinViajesException e) {
+			  fail();
+		}
+		
+	}
+	
 }
