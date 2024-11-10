@@ -18,13 +18,13 @@ import util.Constantes;
 import util.Mensajes;
 import vista.Ventana;
 
-public class GUILogRegVacio {
+public class GUILogRegVacioTest {
 
 	Robot robot;
 	Controlador controlador;
 	FalsoOptionPane op; 
 	
-	public GUILogRegVacio() {
+	public GUILogRegVacioTest() {
 		try {
 			this.robot = new Robot();
 		} catch (AWTException e) {
@@ -83,7 +83,7 @@ public class GUILogRegVacio {
 		TestUtils.clickComponent(pass, robot);
 		TestUtils.tipeaTexto("1234", robot);
 		TestUtils.clickComponent(confPass, robot);
-		TestUtils.tipeaTexto("1234", robot);
+		TestUtils.tipeaTexto("1235", robot);
 		TestUtils.clickComponent(nombre, robot);
 		TestUtils.tipeaTexto("Juan Perez", robot);
 
@@ -94,4 +94,5 @@ public class GUILogRegVacio {
         Assert.assertEquals("Deberia decir: "+Mensajes.PASS_NO_COINCIDE.getValor(), Mensajes.PASS_NO_COINCIDE.getValor(), op.getMensaje());
 	}
 	
+	//FALTA TESTEAR REGISTRO EXITOSO
 }
