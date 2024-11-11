@@ -69,7 +69,7 @@ public class GUIEnabledDisabledClienteTest {
 		JButton calificarPagar = (JButton) TestUtils.getComponentForName(ventana, Constantes.CALIFICAR_PAGAR);
 		//JTextArea pedidoViajeAct = (JTextArea) TestUtils.getComponentForName(ventana,Constantes.PEDIDO_O_VIAJE_ACTUAL);
 		JTextField calificacion = (JTextField) TestUtils.getComponentForName(ventana,Constantes.CALIFICACION_DE_VIAJE);
-		JTextField valorViaje = (JTextField) TestUtils.getComponentForName(ventana,Constantes.VALOR_VIAJE);
+		//JTextField valorViaje = (JTextField) TestUtils.getComponentForName(ventana,Constantes.VALOR_VIAJE);
 		JTextField cantPax = (JTextField) TestUtils.getComponentForName(ventana,Constantes.CANT_PAX);
 		JTextField cantKm = (JTextField) TestUtils.getComponentForName(ventana,Constantes.CANT_KM);
 		JRadioButton btnStandar = (JRadioButton)  TestUtils.getComponentForName(ventana,Constantes.ZONA_STANDARD);

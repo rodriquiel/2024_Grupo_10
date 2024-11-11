@@ -122,6 +122,7 @@ public class GUIEnabledDisabledAdminTest {
 		Ventana ventana = (Ventana) this.controlador.getVista();
 		this.robot.delay(TestUtils.getDelay());
 		ingresoAdmin(ventana);
+		this.robot.delay(TestUtils.getDelay());
 		
 		JButton agregarChofer = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_CHOFER);
 		JTextField anio = (JTextField) TestUtils.getComponentForName(ventana, Constantes.CH_ANIO);
@@ -154,6 +155,7 @@ public class GUIEnabledDisabledAdminTest {
 		TestUtils.tipeaTexto("1", robot);
 		TestUtils.clickComponent(anio, robot);
 		TestUtils.tipeaTexto("2024", robot);
+		this.robot.delay(TestUtils.getDelay()*2);
 		
 		Assert.assertTrue("El boton de agregar chofer deberia estar habilitado",agregarChofer.isEnabled());		
 	}
@@ -180,6 +182,7 @@ public class GUIEnabledDisabledAdminTest {
 		TestUtils.tipeaTexto("-1", robot);
 		TestUtils.clickComponent(anio, robot);
 		TestUtils.tipeaTexto("2024", robot);
+		this.robot.delay(TestUtils.getDelay());
 		
 		Assert.assertFalse("El boton de agregar chofer deberia estar deshabilitado",agregarChofer.isEnabled());		
 	}
@@ -206,6 +209,7 @@ public class GUIEnabledDisabledAdminTest {
 		TestUtils.tipeaTexto("1", robot);
 		TestUtils.clickComponent(anio, robot);
 		TestUtils.tipeaTexto("1899", robot);
+		this.robot.delay(TestUtils.getDelay());
 		
 		Assert.assertFalse("El boton de agregar chofer deberia estar deshabilitado",agregarChofer.isEnabled());		
 	}
@@ -226,6 +230,7 @@ public class GUIEnabledDisabledAdminTest {
 		TestUtils.clickComponent(nombre, robot);
 		TestUtils.tipeaTexto("Carlos", robot);
 		TestUtils.clickComponent(btnTemp, robot);
+		this.robot.delay(TestUtils.getDelay());
 		
 		Assert.assertTrue("El boton de agregar chofer deberia estar habilitado",agregarChofer.isEnabled());		
 	}
