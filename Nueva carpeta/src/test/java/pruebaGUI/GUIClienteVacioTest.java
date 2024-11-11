@@ -44,7 +44,7 @@ public class GUIClienteVacioTest {
 		this.controlador = new Controlador();
 		this.op = new FalsoOptionPane();
 		this.controlador.getVista().setOptionPane(op);
-		Empresa.getInstance().agregarCliente("Juan", "1234", "Juan Perez");
+		Empresa.getInstance().agregarCliente("juan", "1234", "Juan Perez");
 
 	}
 
@@ -63,7 +63,7 @@ public class GUIClienteVacioTest {
 		JButton aceptarLogin = (JButton) TestUtils.getComponentForName(ventana, Constantes.LOGIN);
 		
 		TestUtils.clickComponent(nombreUsuario, robot);
-		TestUtils.tipeaTexto("Juan", robot);
+		TestUtils.tipeaTexto("juan", robot);
 		TestUtils.clickComponent(pass, robot);
 		TestUtils.tipeaTexto("1234", robot);
 		TestUtils.clickComponent(aceptarLogin, robot);
@@ -145,8 +145,9 @@ public class GUIClienteVacioTest {
 		JRadioButton btnSinAsfaltar = (JRadioButton)  TestUtils.getComponentForName(ventana,Constantes.ZONA_SIN_ASFALTAR);
 		JRadioButton btnPeligrosa = (JRadioButton)  TestUtils.getComponentForName(ventana,Constantes.ZONA_PELIGROSA);
 		JTextArea pedidoViajeAct = (JTextArea) TestUtils.getComponentForName(ventana,Constantes.PEDIDO_O_VIAJE_ACTUAL);
+		JTextField calificacion = (JTextField) TestUtils.getComponentForName(ventana,Constantes.CALIFICACION_DE_VIAJE);
+		JTextField valorViaje = (JTextField) TestUtils.getComponentForName(ventana,Constantes.VALOR_VIAJE);
 
-		
 		TestUtils.clickComponent(cantPax, robot);
 		TestUtils.tipeaTexto("2", robot);
 		TestUtils.clickComponent(cantKm, robot);
@@ -164,5 +165,7 @@ public class GUIClienteVacioTest {
 		Assert.assertFalse("El boton de zona peligrosa deberia estar deshabilitado",btnPeligrosa.isEnabled());
 		Assert.assertFalse("El boton de mascota deberia estar deshabilitado",btnMascota.isEnabled());
 		Assert.assertFalse("El boton de baul deberia estar deshabilitado",btnBaul.isEnabled());
+		Assert.assertFalse("El TextField valor de viaje deberia ser nulo",valorViaje.isEnabled());
+		Assert.assertFalse("El campo para calificar el viaje deberia ser Null",calificacion.isEnabled());
 	}
 }

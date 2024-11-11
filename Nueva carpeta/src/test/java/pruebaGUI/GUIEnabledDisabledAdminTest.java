@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -54,6 +55,17 @@ public class GUIEnabledDisabledAdminTest {
 		this.robot.delay(TestUtils.getDelay());
 	}
 
+	
+	public void testVentanaClienteVacia() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		this.robot.delay(TestUtils.getDelay());
+		JButton cerrarSesion = (JButton) TestUtils.getComponentForName(ventana, Constantes.CERRAR_SESION_ADMIN);
+		
+		Assert.assertTrue("El boton de cerrar sesion deberia estar habilitado", cerrarSesion.isEnabled());
+	}
 
 	@Test
 	public void testVentanaAdminVacia() {
@@ -233,5 +245,218 @@ public class GUIEnabledDisabledAdminTest {
 		this.robot.delay(TestUtils.getDelay());
 		
 		Assert.assertTrue("El boton de agregar chofer deberia estar habilitado",agregarChofer.isEnabled());		
+	}
+	
+	@Test
+	public void testAgregarChoferCompletoInvalidoTemp() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JRadioButton btnTemp = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.TEMPORARIO);
+		JButton agregarChofer = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_CHOFER);
+		JTextField dni = (JTextField) TestUtils.getComponentForName(ventana, Constantes.DNI_CHOFER);
+		
+		TestUtils.clickComponent(dni, robot);
+		TestUtils.tipeaTexto("12345678", robot);
+		TestUtils.clickComponent(btnTemp, robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar chofer deberia estar deshabilitado",agregarChofer.isEnabled());		
+	}
+	
+	@Test
+	public void testAgregarMotoInvalido() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnMoto = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.MOTO);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+		JCheckBox btnMascota = (JCheckBox) TestUtils.getComponentForName(ventana, Constantes.CHECK_VEHICULO_ACEPTA_MASCOTA);
+
+		
+		TestUtils.clickComponent(btnMoto, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("DEF123", robot);
+		TestUtils.clickComponent(btnMascota, robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar habilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarMotoValido() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnMoto = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.MOTO);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+
+		TestUtils.clickComponent(btnMoto, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("DEF123", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertTrue("El boton de agregar vehiculo deberia estar habilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarAutoSoloPatente() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnAuto = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.AUTO);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+
+		TestUtils.clickComponent(btnAuto, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("ABC123", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar deshabilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarAutoSoloCantidad() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnAuto = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.AUTO);
+		JTextField cant = (JTextField) TestUtils.getComponentForName(ventana, Constantes.CANTIDAD_PLAZAS);
+
+		TestUtils.clickComponent(btnAuto, robot);
+		TestUtils.clickComponent(cant, robot);
+		TestUtils.tipeaTexto("4", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar deshabilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarAutoCompletoInvalido() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnAuto = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.AUTO);
+		JTextField cant = (JTextField) TestUtils.getComponentForName(ventana, Constantes.CANTIDAD_PLAZAS);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+
+		TestUtils.clickComponent(btnAuto, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("ABC123", robot);
+		TestUtils.clickComponent(cant, robot);
+		TestUtils.tipeaTexto("5", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar deshabilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarAutoCompletoValido() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnAuto = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.AUTO);
+		JTextField cant = (JTextField) TestUtils.getComponentForName(ventana, Constantes.CANTIDAD_PLAZAS);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+
+		TestUtils.clickComponent(btnAuto, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("ABC123", robot);
+		TestUtils.clickComponent(cant, robot);
+		TestUtils.tipeaTexto("4", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertTrue("El boton de agregar vehiculo deberia estar habilitado",agregarVehiculo.isEnabled());
+	}
+	/////
+	@Test
+	public void testAgregarCombiSoloPatente() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnCombi = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.COMBI);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+
+		TestUtils.clickComponent(btnCombi, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("HIJ123", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar deshabilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarCombiSoloCantidad() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnCombi = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.COMBI);
+		JTextField cant = (JTextField) TestUtils.getComponentForName(ventana, Constantes.CANTIDAD_PLAZAS);
+
+		TestUtils.clickComponent(btnCombi, robot);
+		TestUtils.clickComponent(cant, robot);
+		TestUtils.tipeaTexto("6", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar deshabilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarCombiCompletoInvalido() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnCombi = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.COMBI);
+		JTextField cant = (JTextField) TestUtils.getComponentForName(ventana, Constantes.CANTIDAD_PLAZAS);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+
+		TestUtils.clickComponent(btnCombi, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("HIJ123", robot);
+		TestUtils.clickComponent(cant, robot);
+		TestUtils.tipeaTexto("11", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar deshabilitado",agregarVehiculo.isEnabled());
+	}
+	
+	@Test
+	public void testAgregarCombiCompletoValido() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		ingresoAdmin(ventana);
+		
+		JButton agregarVehiculo = (JButton) TestUtils.getComponentForName(ventana, Constantes.NUEVO_VEHICULO);
+		JRadioButton btnCombi = (JRadioButton) TestUtils.getComponentForName(ventana, Constantes.COMBI);
+		JTextField cant = (JTextField) TestUtils.getComponentForName(ventana, Constantes.CANTIDAD_PLAZAS);
+		JTextField patente = (JTextField) TestUtils.getComponentForName(ventana, Constantes.PATENTE);
+
+		TestUtils.clickComponent(btnCombi, robot);
+		TestUtils.clickComponent(patente, robot);
+		TestUtils.tipeaTexto("HIJ123", robot);
+		TestUtils.clickComponent(cant, robot);
+		TestUtils.tipeaTexto("6", robot);
+		this.robot.delay(TestUtils.getDelay());
+		
+		Assert.assertTrue("El boton de agregar vehiculo deberia estar habilitado",agregarVehiculo.isEnabled());
 	}
 }
