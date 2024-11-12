@@ -123,7 +123,7 @@ public class GUIAdminVacioTest {
 		TestUtils.clickComponent(vehiculosTotal, robot);
 		this.robot.delay(TestUtils.getDelay());
 
-		Assert.assertEquals("La cantidad de elementos de la lista de choferes no deberia ser 0",vehiculosTotal.getModel().getSize(),1);	
+		Assert.assertEquals("La cantidad de elementos de la lista de vehiculos deberia ser 1",vehiculosTotal.getModel().getSize(),1);	
 	}
 	
 	@Test

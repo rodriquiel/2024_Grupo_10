@@ -96,6 +96,8 @@ public class GUIClienteConDatosTest {
 		
 		TestUtils.clickComponent(calificacion, robot);
 		TestUtils.tipeaTexto("4", robot);
+		this.robot.delay(TestUtils.getDelay());
+
 		TestUtils.clickComponent(calificarPagar, robot);
 		
 		Assert.assertNull("El contenido de la lista de pedidos deberia ser nulo",pedidoViajeAct.getSelectedText());
