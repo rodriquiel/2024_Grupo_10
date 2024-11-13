@@ -283,7 +283,7 @@ public class GUIEnabledDisabledAdminTest {
 		TestUtils.clickComponent(btnMascota, robot);
 		this.robot.delay(TestUtils.getDelay());
 		
-		Assert.assertFalse("El boton de agregar vehiculo deberia estar habilitado",agregarVehiculo.isEnabled());
+		Assert.assertFalse("El boton de agregar vehiculo deberia estar deshabilitado",agregarVehiculo.isEnabled());
 	}
 	
 	@Test

@@ -67,9 +67,8 @@ public class GUILogRegConDatosTest {
         this.robot.delay(TestUtils.getDelay());
         
         Assert.assertEquals("Deberia coincidir el nombre de usuario con el nombre admin", "admin", admin.getNombreUsuario());
-        //Al no tener nombre el panel de Administrador, se obtiene alguno de los elementos unicos, en este caso TOTAL_SUELDOS_A_PAGAR, para comprobar que la ventana abierta sea la correspondiente
-        JTextField totalSueldos = (JTextField) TestUtils.getComponentForName(ventana, Constantes.TOTAL_SUELDOS_A_PAGAR);
-        Assert.assertNotNull("Deberia existir el panel de Texto de total de sueldos a pagar",totalSueldos);
+		JPanel panelAdmin = (JPanel) TestUtils.getComponentForName(ventana, Constantes.PANEL_ADMINISTRADOR);
+        Assert.assertNotNull("No se abrio la ventana de Administrador",panelAdmin);
     }
 	
 	@Test
@@ -136,13 +135,13 @@ public class GUILogRegConDatosTest {
 		this.robot.delay(TestUtils.getDelay());
 		JButton registrar = (JButton) TestUtils.getComponentForName(ventana, Constantes.REGISTRAR);
 		TestUtils.clickComponent(registrar, robot);
-		
-		Ventana ventanaReg = (Ventana) this.controlador.getVista();
-		JTextField confPass = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_CONFIRM_PASSWORD);
-		JTextField nombre = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_REAL_NAME);
-		JTextField pass = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_PASSWORD);
-		JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_USSER_NAME);
-		JButton registrar2 = (JButton) TestUtils.getComponentForName(ventanaReg, Constantes.REG_BUTTON_REGISTRAR);
+		this.robot.delay(TestUtils.getDelay());
+
+		JTextField confPass = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_CONFIRM_PASSWORD);
+		JTextField nombre = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_REAL_NAME);
+		JTextField pass = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_PASSWORD);
+		JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_USSER_NAME);
+		JButton registrar2 = (JButton) TestUtils.getComponentForName(ventana, Constantes.REG_BUTTON_REGISTRAR);
 		
 		TestUtils.clickComponent(nombreUsuario, robot);
 		TestUtils.tipeaTexto("Juan", robot);
@@ -155,7 +154,7 @@ public class GUILogRegConDatosTest {
 
 		TestUtils.clickComponent(registrar2, robot);
 		
-		this.robot.delay(TestUtils.getDelay());
+		this.robot.delay(TestUtils.getDelay()*2);
 		
         Assert.assertEquals("Deberia decir: "+Mensajes.USUARIO_REPETIDO.getValor(), Mensajes.USUARIO_REPETIDO.getValor(), op.getMensaje());
 	

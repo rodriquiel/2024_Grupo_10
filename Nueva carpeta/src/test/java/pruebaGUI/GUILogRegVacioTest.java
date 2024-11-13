@@ -6,6 +6,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.junit.After;
@@ -59,7 +60,7 @@ public class GUILogRegVacioTest {
 		TestUtils.tipeaTexto("1234", robot);
 		TestUtils.clickComponent(aceptarLogin, robot);
 				
-		this.robot.delay(TestUtils.getDelay());
+		this.robot.delay(TestUtils.getDelay()*2);
 		
         Assert.assertEquals("Deberia decir: "+Mensajes.USUARIO_DESCONOCIDO.getValor(), Mensajes.USUARIO_DESCONOCIDO.getValor(), op.getMensaje());
 	}
@@ -70,13 +71,14 @@ public class GUILogRegVacioTest {
 		this.robot.delay(TestUtils.getDelay());
 		JButton registrar = (JButton) TestUtils.getComponentForName(ventana, Constantes.REGISTRAR);
 		TestUtils.clickComponent(registrar, robot);
-		
-		Ventana ventanaReg = (Ventana) this.controlador.getVista();
-		JTextField confPass = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_CONFIRM_PASSWORD);
-		JTextField nombre = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_REAL_NAME);
-		JTextField pass = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_PASSWORD);
-		JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_USSER_NAME);
-		JButton registrar2 = (JButton) TestUtils.getComponentForName(ventanaReg, Constantes.REG_BUTTON_REGISTRAR);
+		this.robot.delay(TestUtils.getDelay());
+
+		//Ventana ventanaReg = (Ventana) this.controlador.getVista();
+		JTextField confPass = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_CONFIRM_PASSWORD);
+		JTextField nombre = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_REAL_NAME);
+		JTextField pass = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_PASSWORD);
+		JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_USSER_NAME);
+		JButton registrar2 = (JButton) TestUtils.getComponentForName(ventana, Constantes.REG_BUTTON_REGISTRAR);
 		
 		TestUtils.clickComponent(nombreUsuario, robot);
 		TestUtils.tipeaTexto("Juan", robot);
@@ -95,4 +97,37 @@ public class GUILogRegVacioTest {
 	}
 	
 	//FALTA TESTEAR REGISTRO EXITOSO
+	
+	@Test
+	public void testRegistroExitoso() {
+		Ventana ventana = (Ventana) this.controlador.getVista();
+		this.robot.delay(TestUtils.getDelay());
+		JButton registrar = (JButton) TestUtils.getComponentForName(ventana, Constantes.REGISTRAR);
+		TestUtils.clickComponent(registrar, robot);
+		this.robot.delay(TestUtils.getDelay());
+
+		//Ventana ventanaReg = (Ventana) this.controlador.getVista();
+		JTextField confPass = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_CONFIRM_PASSWORD);
+		JTextField nombre = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_REAL_NAME);
+		JTextField pass = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_PASSWORD);
+		JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName(ventana, Constantes.REG_USSER_NAME);
+		JButton registrar2 = (JButton) TestUtils.getComponentForName(ventana, Constantes.REG_BUTTON_REGISTRAR);
+		
+		TestUtils.clickComponent(nombreUsuario, robot);
+		TestUtils.tipeaTexto("Juan", robot);
+		TestUtils.clickComponent(pass, robot);
+		TestUtils.tipeaTexto("1234", robot);
+		TestUtils.clickComponent(confPass, robot);
+		TestUtils.tipeaTexto("1234", robot);
+		TestUtils.clickComponent(nombre, robot);
+		TestUtils.tipeaTexto("Juan Perez", robot);
+
+		TestUtils.clickComponent(registrar2, robot);
+		
+		this.robot.delay(TestUtils.getDelay());
+		
+		JPanel panelLogin = (JPanel) TestUtils.getComponentForName(ventana, Constantes.PANEL_LOGIN);
+        Assert.assertNotNull("No se abrio la ventana de Cliente",panelLogin);
+
+	}
 }

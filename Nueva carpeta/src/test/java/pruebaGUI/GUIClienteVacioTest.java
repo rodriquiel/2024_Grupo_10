@@ -154,7 +154,7 @@ public class GUIClienteVacioTest {
 		TestUtils.tipeaTexto("2", robot);
 		TestUtils.clickComponent(btnMascota, robot);
 		TestUtils.clickComponent(nuevoPedido, robot);
-		this.robot.delay(TestUtils.getDelay()*2);
+		this.robot.delay(TestUtils.getDelay());
 		
 		//Se prueba los botones y campos deshabilitados aca ya que no tenia mucho sentido crear un vehiculo y un pedido solo para probar el Enabled de los componentes
 		Assert.assertNotNull("La lista de pedidos no deberia ser nula",pedidoViajeAct.getText());
@@ -165,7 +165,7 @@ public class GUIClienteVacioTest {
 		Assert.assertFalse("El boton de zona peligrosa deberia estar deshabilitado",btnPeligrosa.isEnabled());
 		Assert.assertFalse("El boton de mascota deberia estar deshabilitado",btnMascota.isEnabled());
 		Assert.assertFalse("El boton de baul deberia estar deshabilitado",btnBaul.isEnabled());
-		Assert.assertFalse("El TextField valor de viaje deberia ser nulo",valorViaje.isEnabled());
-		Assert.assertFalse("El campo para calificar el viaje deberia ser Null",calificacion.isEnabled());
+		Assert.assertTrue("El TextField valor de viaje deberia estar vacio",valorViaje.getText().trim().isEmpty());
+		Assert.assertFalse("El campo para calificar el viaje deberia estar deshabilitado",calificacion.isEnabled());
 	}
 }

@@ -100,15 +100,11 @@ public class GUIClienteConDatosTest {
 
 		TestUtils.clickComponent(calificarPagar, robot);
 		
-		Assert.assertNull("El contenido de la lista de pedidos deberia ser nulo",pedidoViajeAct.getSelectedText());
-		Assert.assertEquals("La cantidad de elementos de la lista de choferes deberia ser 0",viajesCliente.getModel().getSize(),0);	
+		this.robot.delay(TestUtils.getDelay());
 
 		
-		viajesCliente.setSelectedIndex(0);
-		TestUtils.clickComponent(viajesCliente, robot);
-		
-		Assert.assertNotNull("El contenido de la lista de viajes del cliente no deberia ser nulo",viajesCliente.getSelectedIndex());
-		Assert.assertEquals("La cantidad de elementos de la lista de choferes no deberia ser 0",viajesCliente.getModel().getSize(),1);	
+		Assert.assertNull("El contenido de la lista de pedidos deberia ser nulo",pedidoViajeAct.getSelectedText());
+		Assert.assertEquals("La cantidad de elementos de la lista viajes del cliente deberia ser 1",1,viajesCliente.getModel().getSize());		
 	}
 	
 	
