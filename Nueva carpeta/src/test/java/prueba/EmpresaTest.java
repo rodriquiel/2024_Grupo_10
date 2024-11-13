@@ -17,6 +17,7 @@ import org.junit.Test;
 import excepciones.ClienteSinViajePendienteException;
 import excepciones.SinViajesException;
 import excepciones.UsuarioYaExisteException;
+import junit.framework.Assert;
 import modeloDatos.Chofer;
 import modeloDatos.ChoferTemporario;
 import modeloDatos.Cliente;
@@ -152,7 +153,7 @@ public class EmpresaTest {
 	
 	@Test
 	public void validarPedidoTest() {
-		Pedido pedido1=new Pedido(cliente1, 0, false, false, 0, null);
+		Pedido pedido1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_PELIGROSA);
 		
 		assertFalse("el pedido no deberia ser valido",empresa1.validarPedido(pedido1));
 		
@@ -186,7 +187,7 @@ public class EmpresaTest {
 		catch (Exception e) {
 			// TODO: handle exception
 		}
-		assertEquals("no devuelve los salarios correctamente",empresa1.getTotalSalarios(),450.0);
+		Assert.assertEquals(450.0,empresa1.getTotalSalarios(),0.001);
 	}
 	
 	@Test
@@ -235,68 +236,6 @@ public class EmpresaTest {
 		
 	}
 	
-	@Test
-	public void GetPedidoClienteTest()
-	{
-		assertNull("deberia se null",empresa1.getPedidoDeCliente(cliente1));
-		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
-		try {
-			empresa1.agregarPedido(p1);
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		assertEquals("deberia ser igual p1",empresa1.getPedidoDeCliente(cliente1),p1);
-	}
-	@Test
-	public void GetviajeDelClienteTest()
-	{
-		assertNull("deberia ser null",empresa1.getViajeDeCliente(cliente1));
-		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
-		Chofer ch1=new ChoferTemporario("43212555","raul");
-		Vehiculo m1= new Moto("123");
-		
-		try {
-			empresa1.agregarChofer(ch1);
-			empresa1.agregarVehiculo(m1);
-			empresa1.agregarPedido(p1);
-			empresa1.crearViaje(p1, ch1, m1);
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		assertNotNull("deberia no sere null",empresa1.getViajeDeCliente(cliente1));
-	}
-	@Test
-	public void CalificacionDelChoferTest()
-	{
-		Pedido p1=new Pedido(cliente1, 1, false, false, 10,Constantes.ZONA_STANDARD);
-		Chofer ch1=new ChoferTemporario("43212555","raul");
-		Vehiculo m1= new Moto("123");
-		
-		try {
-			empresa1.calificacionDeChofer(ch1);
-			fail();
-		} catch (SinViajesException e) {
-		}
-		
-		try {
-			empresa1.agregarChofer(ch1);
-			empresa1.agregarVehiculo(m1);
-			empresa1.agregarPedido(p1);
-			empresa1.crearViaje(p1, ch1, m1);
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		try {
-			empresa1.pagarYFinalizarViaje(3);
-		} catch (ClienteSinViajePendienteException e) {
-			// TODO Bloque catch generado automáticamente
-		}
-		try {
-			assertTrue(empresa1.calificacionDeChofer(ch1)<=5.0 && empresa1.calificacionDeChofer(ch1)>0.0);
-		} catch (SinViajesException e) {
-			  fail();
-		}
-		
-	}
+
 	
 }

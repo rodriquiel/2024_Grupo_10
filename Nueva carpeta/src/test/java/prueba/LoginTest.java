@@ -1,6 +1,7 @@
 package prueba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
@@ -51,7 +52,7 @@ public class LoginTest {
 			usuario=empresa.login("Juan123","ABC123");
 			fail("Deberia lanzar la excepcion - UsuarioNoExisteException  -");
 		}catch(UsuarioNoExisteException excep) {
-			//assertEquals("Los usuarios deberian ser iguales",usuario.getNombreUsuario(),excep.getUsuarioPretendido());
+			assertEquals("Los usuarios deberian ser iguales","Juan123",excep.getUsuarioPretendido());
 			assertEquals("El mensaje de la excepcion esta mal",excep.getMessage(),util.Mensajes.USUARIO_DESCONOCIDO);
 		}catch(Exception e) {
 			fail("No deberia lanzar una excepcion diferente de - UsuarioNoExisteException  -");
@@ -69,6 +70,8 @@ public class LoginTest {
 			usuario=empresa.login("Juan123","ABC456");//contrasenia incorrecta
 			fail("Deberia lanzar la excepcion - PasswordErroneaException  -");
 		}catch(PasswordErroneaException excep) {
+			assertEquals("la claves pretendidas deberian ser iguales","ABC456",excep.getPasswordPretendida());
+			assertEquals("Los usuarios deberian ser iguales","Juan123",excep.getUsuarioPretendido());
 			assertEquals("El mensaje de la excepcion esta mal",excep.getMessage(),util.Mensajes.PASS_ERRONEO);
 		}catch(Exception e) {
 			fail("No deberia lanzar una excepcion diferente de - PasswordErroneaException  -");
