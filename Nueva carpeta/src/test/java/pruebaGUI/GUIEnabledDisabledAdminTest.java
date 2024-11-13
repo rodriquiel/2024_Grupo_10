@@ -155,8 +155,10 @@ public class GUIEnabledDisabledAdminTest {
 		TestUtils.clickComponent(anio, robot);
 		TestUtils.tipeaTexto("2024", robot);
 		
+		this.robot.delay(TestUtils.getDelay());
 		Assert.assertTrue("El boton de agregar chofer deberia estar habilitado",agregarChofer.isEnabled());		
 	}
+	
 	
 	@Test
 	public void testAgregarChoferCompletoInvalidoPerm1() {

@@ -178,7 +178,7 @@ public class VentanaFalsa extends Ventana {
 	
 	@Override
 	public int getHijosChofer() {
-		return super.getHijosChofer();
+		return this.hijosChofer;
 	}
 	
 	public void setHijosChofer(int hijosChofer) {

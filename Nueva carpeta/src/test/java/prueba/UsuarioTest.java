@@ -43,7 +43,7 @@ public class UsuarioTest {
 	}
 	
 	@After
-	void tearDown() {
+	public void tearDown() {
 		this.usuarioPrueba = null;
 	}
 }

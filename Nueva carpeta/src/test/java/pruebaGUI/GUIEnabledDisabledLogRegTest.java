@@ -224,6 +224,7 @@ public class GUIEnabledDisabledLogRegTest {
 		JTextField nombre = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_REAL_NAME);
 		JTextField nombreUsuario = (JTextField) TestUtils.getComponentForName(ventanaReg, Constantes.REG_USSER_NAME);
 
+		this.robot.delay(TestUtils.getDelay());
 		TestUtils.clickComponent(nombreUsuario, robot);
 		TestUtils.tipeaTexto("Juan", robot);
 		TestUtils.clickComponent(confPass, robot);
